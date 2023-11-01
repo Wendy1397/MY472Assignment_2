@@ -1,0 +1,69 @@
+---
+title: "Assignment 2 Exercise 1"
+author: "202075757"
+date: "Octover 27 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE} 
+# this chunk contains code that sets global options for the entire .Rmd. 
+# we use include=FALSE to suppress it from the top of the document, but it will still appear in the appendix. 
+
+knitr::opts_chunk$set(echo = FALSE) # actually set the global chunk options. 
+# we set echo=FALSE to suppress code such that it by default does not appear throughout the document. 
+# note: this is different from .Rmd default
+```
+
+```{r}
+library(dplyr)
+# Define a function named 'calculate_area' that takes a single argument 'data'
+calculate_area <- function(data, transformation_type) {
+  # Check if 'data' is a data frame
+  if (!is.data.frame(data)) {
+    stop("Input data must be a data frame.")
+  }
+  
+  # Use a conditional statement to perform different data transformations
+  if (transformation_type == "petal_area") {
+    # Use mutate to calculate petal area and add it as a new column
+    transformed_data <- data %>%
+      mutate(Petal_Area = Petal.Length * Petal.Width)
+  } else if (transformation_type == "sepal_area") {
+    transformed_data <- data %>%
+      mutate(Sepal_Area = Sepal.Length * Sepal.Width)
+  } else {
+    stop("Invalid transformation_type. Use 'petal_area' or 'sepal_area'.")
+  }
+  
+  return(transformed_data)
+}  
+
+
+```
+
+Below would demonstrate how the function would work depending on different values in the second argument.
+```{r}
+print( "Below would show the function woul work based on differernt conditional argument inputs.")
+
+
+# Load the built-in 'iris' dataset
+data(iris)
+
+#Use the function to calculate petal area
+iris_petal_area <- calculate_area(iris,"petal_area")
+iris_sepal_area <- calculate_area(iris,"sepal_area")
+
+# Print the transformed data
+print(iris_petal_area)
+print(iris_sepal_area)
+```
+
+Based on the original R draft(iris_area) in the main branch, a second argument is added to calculate the area of different parts using a conditional statement. It could perform 2 types of data transformations with mutate function and different input variables.The first one is  Overall, the function, calculate_area, could provide the output of the area of petal and sepal using built-in dataset iris.
+
+
+## Appendix: All code in this assignment
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE} 
+# this chunk generates the complete code appendix. 
+# eval=FALSE tells R not to run (``evaluate'') the code here (it was already run before).
+```
